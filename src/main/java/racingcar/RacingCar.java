@@ -10,9 +10,8 @@ public class RacingCar {
 	private int currentLocation = STARTING_POINT;
 	private Accelerator accelerator;
 
-	private RacingCar() {
-		throw new IllegalArgumentException("RacingCar 는 이름을 갖습니다");
-	}
+	private static final int MINIMUM_CAR_NAME_SIZE = 1;
+	private static final int MAXIMUM_CAR_NAME_SIZE = 5;
 
 	public RacingCar(String name, Accelerator accelerator) {
 		setName(name);
@@ -24,31 +23,49 @@ public class RacingCar {
 	}
 
 	private void setName(String name) {
-		if (Objects.isNull(name) || name.length() > 5 || name.length() <= 0){
+		if (Objects.isNull(name) || name.length() > MAXIMUM_CAR_NAME_SIZE || name.length() < MINIMUM_CAR_NAME_SIZE) {
 			throw new IllegalArgumentException("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
 		}
 		this.name = name;
-	}
-
-	private void setAccelerator(Accelerator accelerator) {
-		if (Objects.isNull(accelerator)){
-			throw new IllegalArgumentException("자동차는 엑셀레이터를 필수로 갖습니다.");
-		}
-
-		this.accelerator = accelerator;
 	}
 
 	public int getCurrentLocation() {
 		return currentLocation;
 	}
 
+	private void setCurrentLocation(int currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+
 	public Accelerator getAccelerator() {
 		return accelerator;
 	}
 
-	public void moveForward(){
-		if (accelerator.moveForward()){
-			currentLocation += 1;
+	private void setAccelerator(Accelerator accelerator) {
+		if (Objects.isNull(accelerator)) {
+			throw new IllegalArgumentException("자동차는 엑셀레이터를 필수로 갖습니다.");
 		}
+		this.accelerator = accelerator;
+	}
+
+	public void moveForward() {
+		if (accelerator.moveForward()) {
+			setCurrentLocation(getCurrentLocation() + 1);
+		}
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof RacingCar))
+			return false;
+		RacingCar car = (RacingCar)o;
+		return Objects.equals(name, car.name) && Objects.equals(accelerator, car.accelerator);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, accelerator);
 	}
 }
