@@ -1,22 +1,17 @@
 import racingcar.Accelerator;
 import racingcar.RacingCars;
 import racingcar.UserInput;
+import racingcar.engine.RandomEngine;
 
 public class RacingGameModel {
 
 	private UserInput userInput;
-	private Accelerator accelerator;
 
-	public RacingGameModel() {
-		accelerator = Accelerator.ALWAYS_PROCEED;
-	}
-
-	public void putCarNamesWithAccelerator(UserInput userInput, Accelerator accelerator) {
+	public void putCarNames(UserInput userInput) {
 		this.userInput = userInput;
-		this.accelerator = accelerator;
 	}
 
 	public RacingCars getCars() {
-		return new RacingCars(userInput, accelerator);
+		return new RacingCars(userInput, Accelerator.from(new RandomEngine()));
 	}
 }

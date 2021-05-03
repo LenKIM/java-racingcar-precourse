@@ -18,13 +18,14 @@ class RacingGameModelTest {
 	void 사용자로부터_입력을_받아_복수의_레이싱카를_생산한다() {
 		String carNames = "foo,bar";
 		sut = new RacingGameModel();
-		Accelerator alwaysProceed = Accelerator.ALWAYS_PROCEED;
+		Accelerator alwaysProceed = Accelerator.STOP;
 		List<RacingCar> expectedCars = new ArrayList<>();
 		expectedCars.add(new RacingCar("foo", alwaysProceed));
 		expectedCars.add(new RacingCar("bar", alwaysProceed));
 
-		sut.putCarNamesWithAccelerator(UserInput.of(carNames), alwaysProceed);
+		sut.putCarNames(UserInput.of(carNames));
 		assertThat(sut.getCars().size()).isEqualTo(expectedCars.size());
 		assertThat(sut.getCars()).isEqualTo(RacingCars.of(expectedCars));
 	}
+
 }

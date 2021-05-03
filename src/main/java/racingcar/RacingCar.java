@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class RacingCar {
 
-	public final static int STARTING_POINT = 0;
+	public static final int STARTING_POINT = 0;
+
+	private static final int MINIMUM_CAR_NAME_SIZE = 1;
+	private static final int MAXIMUM_CAR_NAME_SIZE = 5;
 
 	private String name;
 	private int currentLocation = STARTING_POINT;
 	private Accelerator accelerator;
-
-	private static final int MINIMUM_CAR_NAME_SIZE = 1;
-	private static final int MAXIMUM_CAR_NAME_SIZE = 5;
 
 	public RacingCar(String name, Accelerator accelerator) {
 		setName(name);
@@ -49,7 +49,7 @@ public class RacingCar {
 	}
 
 	public void moveForward() {
-		if (accelerator.moveForward()) {
+		if (accelerator.moveForward().equals(Power.ON)) {
 			setCurrentLocation(getCurrentLocation() + 1);
 		}
 	}

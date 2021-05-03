@@ -17,7 +17,7 @@ class RacingCarsTest {
 	@Test
 	void 이름을_가진_자동차가_1대_일경우_IllegalArgumentException_발생한다() {
 		String carNames = "foo";
-		assertThatThrownBy(() -> sut = new RacingCars(UserInput.of(carNames), Accelerator.ALWAYS_PROCEED))
+		assertThatThrownBy(() -> sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageMatching("게임은 자동차 2대부터 시작할 수 있습니다");
 	}
@@ -27,7 +27,7 @@ class RacingCarsTest {
 		String carNames = "foo,bar";
 		List<RacingCar> expectedCars = getStubCars(UserInput.of(carNames));
 
-		sut = new RacingCars(UserInput.of(carNames), Accelerator.ALWAYS_PROCEED);
+		sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP);
 		assertThat(sut.size()).isEqualTo(expectedCars.size());
 		assertThat(sut).isEqualTo(RacingCars.of(expectedCars));
 		for (int i = 0; i < sut.size(); i++) {
@@ -44,7 +44,7 @@ class RacingCarsTest {
 		"abc,aaa,bbb,ccc,ddd:5",
 	}, delimiter = ':')
 	void n대의_자동차의_시작지점은_STARTING_POINT이다(String carNames, int n) {
-		sut = new RacingCars(UserInput.of(carNames), Accelerator.ALWAYS_PROCEED);
+		sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP);
 		assertThat(sut.size()).isEqualTo(n);
 		for (int i = 0; i < sut.size(); i++) {
 			RacingCar car = sut.get(i);
@@ -55,7 +55,7 @@ class RacingCarsTest {
 	private List<RacingCar> getStubCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (String carName : userInput.getCarNames()) {
-			RacingCar racingCar = new RacingCar(carName, Accelerator.ALWAYS_PROCEED);
+			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP);
 			racingCars.add(racingCar);
 		}
 		return racingCars;

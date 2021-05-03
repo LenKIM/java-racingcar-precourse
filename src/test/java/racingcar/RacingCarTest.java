@@ -3,8 +3,6 @@ package racingcar;
 import static org.assertj.core.api.Assertions.*;
 import static racingcar.RacingCar.*;
 
-import java.util.function.Supplier;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,7 +15,7 @@ class RacingCarTest {
 	@BeforeEach
 	void setUp() {
 		name = "Foo";
-		acceleratorStub = new Accelerator(() -> null);
+		acceleratorStub = Accelerator.STOP;
 	}
 
 	@Test
@@ -57,26 +55,9 @@ class RacingCarTest {
 	}
 
 	@Test
-	void RacingCar는_전진조건이_명시된_엑셀레이터를_가진다() {
-		Supplier<Boolean> moveForwardCondition = () -> true;
-		sut = new RacingCar(name, new Accelerator(moveForwardCondition));
-		assertThat(sut.getAccelerator()).isNotNull();
-	}
-
-	@Test
-	void RacingCar는_전진조건이_명시되지_않는_엑셀레이터를_가질경우_IllegalArgumentException_발생한다() {
-		Supplier<Boolean> moveForwardCondition = null;
-
-		assertThatThrownBy(() -> sut = new RacingCar(name, new Accelerator(moveForwardCondition)))
-			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageMatching("Accelerator는 항상 전진할 수 있는 조건을 갖습니다");
-	}
-
-	@Test
-	void 엑셀레이터가_True로서_동작하는경우_자동차는_전진한다() {
-		Supplier<Boolean> moveForwardCondition = () -> true;
-		Accelerator accelerator = new Accelerator(moveForwardCondition);
-		assertThat(accelerator.moveForward()).isTrue();
+	void 엑셀레이터의_전원이_동작하는_경우_자동차는_전진한다() {
+		Accelerator accelerator = Accelerator.PROCEED;
+		assertThat(accelerator.moveForward()).isEqualTo(Power.ON);
 		int MOVED_RACING_CAR = STARTING_POINT + 1;
 
 		sut = new RacingCar(name, accelerator);
@@ -87,11 +68,9 @@ class RacingCarTest {
 	}
 
 	@Test
-	void 엑셀레이터가_False로서_동작하는경우_자동차는_전진하지_않는다() {
-
-		Supplier<Boolean> moveForwardCondition = () -> false;
-		Accelerator accelerator = new Accelerator(moveForwardCondition);
-		assertThat(accelerator.moveForward()).isFalse();
+	void 엑셀레이터의_전원이_동작하지_않는_경우_자동차는_전진하지_않는다() {
+		Accelerator accelerator = Accelerator.STOP;
+		assertThat(accelerator.moveForward()).isEqualTo(Power.OFF);
 
 		sut = new RacingCar(name, accelerator);
 		assertThat(sut.getCurrentLocation()).isEqualTo(STARTING_POINT);
