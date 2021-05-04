@@ -4,16 +4,12 @@ import static utils.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import utils.Assertions;
 
 public class RaceResults {
 
 	public static final RaceResults EMPTY = RaceResults.from(new ArrayList<>());
 
 	private List<RoundScore> value;
-	private List<Record> winners = new ArrayList<>();
 
 	private RaceResults(List<RoundScore> value) {
 		setValue(value);
@@ -32,20 +28,21 @@ public class RaceResults {
 		this.value = value;
 	}
 
-	public List<Record> getWinners() {
+	public Winners getWinners() {
 		Records records = getFinalRoundRecord();
 		int maxValue = Integer.MIN_VALUE;
 		for (Record record : records.getValue()) {
 			maxValue = Math.max(maxValue, record.getLocation().getValue());
 		}
 
+		Winners winners = Winners.emptyList();
 		for (Record record : records.getValue()) {
 			findFarthestCars(winners, maxValue, record);
 		}
 		return winners;
 	}
 
-	private void findFarthestCars(List<Record> winners, int maxValue, Record record) {
+	private void findFarthestCars(Winners winners, int maxValue, Record record) {
 		if (isFarthestCar(maxValue, record)) {
 			winners.add(record);
 		}

@@ -43,21 +43,24 @@ class RaceResultsTest {
 
 	@Test
 	void 경기결과에_따른_우승자를_반환한다() {
-		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED);
-		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
-		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
-		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
-		RacingCars cars = RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
-
+		RacingCars cars = getDummyRacingCars();
 		Race race = Race.of(cars, RoundNumber.valueOf(5));
-
 		race.start();
+
 		sut = race.getResult();
 		List<Record> winners = new ArrayList<>();
 		winners.add(Record.write(foo, CurrentLocation.valueOf(5)));
 		winners.add(Record.write(bar, CurrentLocation.valueOf(5)));
 
-		assertThat(sut.getWinners()).isEqualTo(winners);
+		assertThat(sut.getWinners()).isEqualTo(Winners.from(winners));
+	}
+
+	private RacingCars getDummyRacingCars() {
+		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED);
+		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
+		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
+		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
+		return RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
 	}
 
 	@BeforeEach

@@ -11,6 +11,7 @@ import racingcar.RacingCars;
 import racingcar.Record;
 import racingcar.RoundNumber;
 import racingcar.UserInput;
+import racingcar.Winners;
 import racingcar.engine.RandomEngine;
 
 public class RacingGameModel {
@@ -52,7 +53,7 @@ public class RacingGameModel {
 		return race;
 	}
 
-	public List<Record> getWinner() {
+	public Winners getWinner() {
 		return race.getResult().getWinners();
 	}
 }

@@ -6,6 +6,7 @@ import racingcar.CurrentLocation;
 import racingcar.RaceResults;
 import racingcar.Record;
 import racingcar.RoundScore;
+import racingcar.Winners;
 
 public class RacingGameView {
 
@@ -41,10 +42,10 @@ public class RacingGameView {
 		System.out.println(carName.getValue() + " : " + sb);
 	}
 
-	public void printWinners(List<Record> winner) {
+	public void printWinners(Winners winner) {
 		StringBuilder sb = new StringBuilder();
 		List<String> winnerNames = new ArrayList<>();
-		for (Record record : winner) {
+		for (Record record : winner.getValue()) {
 			winnerNames.add(record.getCarName().getValue());
 		}
 		sb.append(String.join(",",winnerNames));

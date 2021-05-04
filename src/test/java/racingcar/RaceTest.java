@@ -14,8 +14,6 @@ class RaceTest {
 	RacingCars alwaysProceedRacingCars;
 	RoundNumber five_times_rounds;
 	Race sut;
-	private RacingCar fooCar;
-	private RacingCar barCar;
 	private CarName foo;
 	private CarName bar;
 	private CarName kim;
@@ -28,8 +26,8 @@ class RaceTest {
 		kim = CarName.valueOf("kim");
 		park = CarName.valueOf("park");
 
-		fooCar = new RacingCar(foo, Accelerator.PROCEED);
-		barCar = new RacingCar(bar, Accelerator.PROCEED);
+		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED);
+		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
 
 		alwaysProceedRacingCars = RacingCars.from(Lists.list(fooCar, barCar));
 		five_times_rounds = RoundNumber.valueOf("5");
@@ -78,7 +76,7 @@ class RaceTest {
 		sut.start();
 		assertThat(sut.isFinished()).isTrue();
 		RaceResults result = sut.getResult();
-		assertThat(result.getWinners()).isEqualTo(winners);
+		assertThat(result.getWinners()).isEqualTo(Winners.from(winners));
 	}
 
 	private List<Record> getWinnerRecords() {
