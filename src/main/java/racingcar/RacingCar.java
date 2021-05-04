@@ -1,5 +1,7 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.Objects;
 
 public class RacingCar {
@@ -18,9 +20,7 @@ public class RacingCar {
 	}
 
 	private void setCarName(CarName carName) {
-		if (Objects.isNull(carName)){
-			throw new IllegalArgumentException("레이싱카의 이름이 없습니다");
-		}
+		requiredNonNull(carName, "레이싱카의 이름이 없습니다");
 		this.carName = carName;
 	}
 
@@ -37,9 +37,7 @@ public class RacingCar {
 	}
 
 	private void setAccelerator(Accelerator accelerator) {
-		if (Objects.isNull(accelerator)) {
-			throw new IllegalArgumentException("자동차는 엑셀레이터를 필수로 갖습니다.");
-		}
+		requiredNonNull(accelerator, "자동차는 엑셀레이터를 필수로 갖습니다.");
 		this.accelerator = accelerator;
 	}
 

@@ -1,6 +1,10 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.Objects;
+
+import utils.Assertions;
 
 public class CarName {
 
@@ -18,10 +22,16 @@ public class CarName {
 	}
 
 	private void setCarNames(String value) {
-		if (Objects.isNull(value) || value.length() > MAXIMUM_CAR_NAME_SIZE || value.length() < MINIMUM_CAR_NAME_SIZE) {
+		requiredNonNull(value, "자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
+		if (hasValidName(value)) {
 			throw new IllegalArgumentException("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
 		}
+		
 		this.value = value;
+	}
+
+	private boolean hasValidName(String value) {
+		return value.length() > MAXIMUM_CAR_NAME_SIZE || value.length() < MINIMUM_CAR_NAME_SIZE;
 	}
 
 	public String getValue() {

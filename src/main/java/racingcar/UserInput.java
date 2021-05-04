@@ -1,5 +1,7 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -40,9 +42,8 @@ public class UserInput {
 	}
 
 	private void setCarNames(String carNames) {
-		if (Objects.isNull(carNames) || carNames.isEmpty()) {
-			throw new IllegalArgumentException("값을 입력해주시기 바랍니다");
-		}
+		requiredNonNull(carNames, "값을 입력해주시기 바랍니다");
+		requiredNonEmpty(carNames, "값을 입력해주시기 바랍니다");
 
 		carNames = carNames.replace(" ", "");
 		this.carNames = carNames;

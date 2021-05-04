@@ -49,7 +49,7 @@ public class Race {
 	public void start() {
 		List<RoundScore> roundScores = new ArrayList<>();
 		for (int i = 0; i < roundNumber.getCount(); i++) {
-			roundScores.add(RoundScore.write(RoundNumber.valueOf(i), racingCars.moveForward()));
+			roundScores.add(RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(i), racingCars.moveForward()));
 		}
 		result = RaceResults.from(roundScores);
 		raceStatus = RaceStatus.FINISH;

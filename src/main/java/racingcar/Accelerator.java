@@ -1,8 +1,11 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.Objects;
 
 import racingcar.engine.Engine;
+import utils.Assertions;
 
 public class Accelerator {
 
@@ -12,9 +15,7 @@ public class Accelerator {
 	private final Engine<Power> engine;
 
 	private Accelerator(Engine<Power> engine) {
-		if (Objects.isNull(engine)) {
-			throw new IllegalArgumentException("Accelerator는 구동시킬수 있는 조건을 가진 엔진을 갖습니다");
-		}
+		requiredNonNull(engine, "Accelerator는 구동시킬수 있는 조건을 가진 엔진을 갖습니다");
 		this.engine = engine;
 	}
 

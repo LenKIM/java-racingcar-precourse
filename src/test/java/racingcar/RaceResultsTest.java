@@ -27,9 +27,9 @@ class RaceResultsTest {
 	@Test
 	void 경기결과에는_각_라운드마다_기록된_결과가_기록됩니다() {
 		List<RoundScore> scores = new ArrayList<>();
-		scores.add(RoundScore.write(RoundNumber.valueOf(1), Records.EMPTY));
-		scores.add(RoundScore.write(RoundNumber.valueOf(2), Records.EMPTY));
-		scores.add(RoundScore.write(RoundNumber.valueOf(3), Records.EMPTY));
+		scores.add(RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(1), Records.EMPTY));
+		scores.add(RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(2), Records.EMPTY));
+		scores.add(RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(3), Records.EMPTY));
 		sut = RaceResults.from(scores);
 
 		assertThat(sut.getValue()).isEqualTo(scores);

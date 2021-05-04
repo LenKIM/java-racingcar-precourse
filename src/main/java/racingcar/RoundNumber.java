@@ -1,11 +1,13 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 public class RoundNumber {
 
 	private String value;
 
 	private RoundNumber(String value) {
-		this.value = value;
+		setValue(value);
 	}
 
 	public static RoundNumber valueOf(String value) {
@@ -16,8 +18,13 @@ public class RoundNumber {
 		return new RoundNumber(String.valueOf(value));
 	}
 
-	public int getCount() {
+	private void setValue(String value) {
+		requiredNonNull(value, "Round 번호가 없습니다");
+		requiredNonEmpty(value, "Round 번호가 없습니다");
+		this.value = value;
+	}
 
+	public int getCount() {
 		return Integer.parseInt(value);
 	}
 }

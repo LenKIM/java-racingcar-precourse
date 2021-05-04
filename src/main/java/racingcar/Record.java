@@ -1,5 +1,7 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.Objects;
 
 public class Record {
@@ -17,16 +19,12 @@ public class Record {
 	}
 
 	public void setCarName(CarName carName) {
-		if (Objects.isNull(carName)){
-			throw new IllegalArgumentException("레이싱카 이름이 없습니다");
-		}
+		requiredNonNull(carName, "레이싱카 이름이 없습니다");
 		this.carName = carName;
 	}
 
 	public void setLocation(CurrentLocation currentLocation) {
-		if (Objects.isNull(currentLocation)){
-			throw new IllegalArgumentException("현재 위치의 정보가 입력되지 않았습니다");
-		}
+		requiredNonNull(currentLocation, "현재 위치의 정보가 입력되지 않았습니다");
 		this.currentLocation = currentLocation;
 	}
 

@@ -2,7 +2,8 @@ package racingcar;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import utils.Assertions;
 
 public class Records {
 
@@ -19,9 +20,7 @@ public class Records {
 	}
 
 	private void setValue(List<Record> value) {
-		if (Objects.isNull(value)){
-			throw new IllegalArgumentException("작성된 기록이 없습니다");
-		}
+		Assertions.requiredNonNull(value, "작성된 기록이 없습니다");
 		this.value = value;
 	}
 

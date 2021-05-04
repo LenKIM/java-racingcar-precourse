@@ -1,8 +1,12 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import utils.Assertions;
 
 public class RaceResults {
 
@@ -24,9 +28,7 @@ public class RaceResults {
 	}
 
 	private void setValue(List<RoundScore> value) {
-		if (Objects.isNull(value)) {
-			throw new IllegalArgumentException("경기 결과가 없습니다");
-		}
+		requiredNonNull(value, "경기 결과가 없습니다");
 		this.value = value;
 	}
 
