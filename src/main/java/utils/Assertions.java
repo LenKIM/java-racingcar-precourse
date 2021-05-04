@@ -21,4 +21,10 @@ public class Assertions {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
+
+	public static void requiredIsFalse(boolean condition, String exceptionMessage) {
+		if (condition){
+			throw new IllegalArgumentException(exceptionMessage);
+		}
+	}
 }

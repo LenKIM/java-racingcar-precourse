@@ -1,6 +1,6 @@
 package racingcar;
 
-import utils.Assertions;
+import static utils.Assertions.*;
 
 public class RoundScore {
 
@@ -17,7 +17,7 @@ public class RoundScore {
 	}
 
 	public void setNumber(RoundNumber number) {
-		Assertions.requiredNonNull(number, "라운드 정보가 없습니다");
+		requiredNonNull(number, "라운드 정보가 없습니다");
 		this.number = number;
 	}
 
@@ -26,7 +26,7 @@ public class RoundScore {
 	}
 
 	public void setRecords(Records records) {
-		Assertions.requiredNonNull(number, "경기 기록이 없습니다");
+		requiredNonNull(number, "경기 기록이 없습니다");
 		this.records = records;
 	}
 }

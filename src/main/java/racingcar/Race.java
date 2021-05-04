@@ -1,8 +1,11 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
+import utils.Assertions;
 
 public class Race {
 
@@ -22,16 +25,12 @@ public class Race {
 	}
 
 	private void setRacingCars(RacingCars racingCars) {
-		if (Objects.isNull(racingCars)) {
-			throw new IllegalArgumentException("경주할 자동차가 없습니다");
-		}
+		requiredNonNull(racingCars, "경주할 자동차가 없습니다");
 		this.racingCars = racingCars;
 	}
 
 	private void setRound(RoundNumber roundNumber) {
-		if (Objects.isNull(roundNumber)) {
-			throw new IllegalArgumentException("Round 정보가 없습니다");
-		}
+		requiredNonNull(roundNumber, "Round 정보가 없습니다");
 		this.roundNumber = roundNumber;
 	}
 
@@ -49,7 +48,8 @@ public class Race {
 	public void start() {
 		List<RoundScore> roundScores = new ArrayList<>();
 		for (int round = 0; round < roundNumber.getCount(); round++) {
-			RoundScore roundScore = RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(round), racingCars.moveForward());
+			RoundScore roundScore = RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(round),
+				racingCars.moveForward());
 			roundScores.add(roundScore);
 		}
 		result = RaceResults.from(roundScores);

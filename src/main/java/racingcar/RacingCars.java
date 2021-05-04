@@ -1,5 +1,7 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -19,9 +21,7 @@ public class RacingCars {
 	}
 
 	private void setValue(List<RacingCar> value) {
-		if (value.size() <= MINIMUM_CAR_SIZE) {
-			throw new IllegalArgumentException("게임은 자동차 2대부터 시작할 수 있습니다");
-		}
+		requiredIsFalse(value.size() <= MINIMUM_CAR_SIZE, "게임은 자동차 2대부터 시작할 수 있습니다");
 		this.value = value;
 	}
 

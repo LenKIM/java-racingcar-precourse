@@ -64,8 +64,8 @@ public class UserInput {
 
 	private void appendIndexCharacter(CarName[] splitNames, Map<CarName, Pair> carNameMap, int index, Pair indexInfo) {
 		if (indexInfo.frequentCount <= 0) {
-			splitNames[indexInfo.index] =
-				CarName.valueOf(splitNames[indexInfo.index].getValue() + (char)(indexInfo.frequentCount
+			splitNames[indexInfo.index] = CarName.valueOf(
+				splitNames[indexInfo.index].getValue() + (char)(indexInfo.frequentCount
 					+ UserInput.INDEX_CHARACTER));
 		}
 		indexInfo.frequentCount += 1;

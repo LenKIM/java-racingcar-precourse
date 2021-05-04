@@ -1,9 +1,9 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.List;
 import java.util.Objects;
-
-import utils.Assertions;
 
 public class CarNames {
 
@@ -22,7 +22,7 @@ public class CarNames {
 	}
 
 	private void setValue(List<CarName> value) {
-		Assertions.requiredNonNull(value, "경주차 이름 정보가 없습니다");
+		requiredNonNull(value, "경주차 이름 정보가 없습니다");
 		this.value = value;
 	}
 

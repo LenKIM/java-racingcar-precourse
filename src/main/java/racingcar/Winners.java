@@ -1,10 +1,10 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import utils.Assertions;
 
 public class Winners {
 
@@ -31,7 +31,7 @@ public class Winners {
 	}
 
 	public void setValue(List<Record> value) {
-		Assertions.requiredNonNull(value, "우승자 정보가 없습니다");
+		requiredNonNull(value, "우승자 정보가 없습니다");
 		this.value = value;
 	}
 

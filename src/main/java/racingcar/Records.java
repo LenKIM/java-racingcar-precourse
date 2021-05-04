@@ -1,5 +1,7 @@
 package racingcar;
 
+import static utils.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class Records {
 	}
 
 	private void setValue(List<Record> value) {
-		Assertions.requiredNonNull(value, "작성된 기록이 없습니다");
+		requiredNonNull(value, "작성된 기록이 없습니다");
 		this.value = value;
 	}
 

@@ -3,6 +3,7 @@ package racingcar;
 import java.util.Objects;
 
 public class CurrentLocation {
+
 	public static final CurrentLocation STARTING_POINT = CurrentLocation.valueOf(0);
 
 	private int value;
