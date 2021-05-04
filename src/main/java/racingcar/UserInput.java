@@ -12,6 +12,7 @@ import java.util.Objects;
 public class UserInput {
 
 	private String carNames;
+	private static final char INDEX_CHARACTER = '1';
 
 	private UserInput(String carNames) {
 		setCarNames(carNames);
@@ -23,37 +24,35 @@ public class UserInput {
 
 	public CarNames getCarNames() {
 		Map<CarName, Pair> carNameMap = new HashMap<>();
-		String[] split = carNames.split(",");
-		CarName[] splitNames = new CarName[split.length];
-		for (int i = 0; i < split.length; i++) {
-			splitNames[i] = CarName.valueOf(split[i]);
-		}
-		char indexCharacter = '1';
-		for (int index = 0; index < splitNames.length; index++) {
-			if (proceedIfDuplicated(splitNames, carNameMap, indexCharacter, index)) {
-				continue;
-			}
-			carNameMap.put(splitNames[index], new Pair(index, 0));
-		}
+		String[] splitString = carNames.split(",");
+		CarName[] splitNames = new CarName[splitString.length];
+		duplicatedNameProcess(carNameMap, splitString, splitNames);
 
 		List<CarName> cars = new ArrayList<>();
 		Collections.addAll(cars, splitNames);
 		return CarNames.from(cars);
 	}
 
-	private void setCarNames(String carNames) {
-		requiredNonNull(carNames, "값을 입력해주시기 바랍니다");
-		requiredNonEmpty(carNames, "값을 입력해주시기 바랍니다");
-
-		carNames = carNames.replace(" ", "");
-		this.carNames = carNames;
+	private void duplicatedNameProcess(Map<CarName, Pair> carNameMap, String[] splitString, CarName[] splitNames) {
+		for (int i = 0; i < splitString.length; i++) {
+			splitNames[i] = CarName.valueOf(splitString[i]);
+		}
+		for (int index = 0; index < splitNames.length; index++) {
+			renameUserName(carNameMap, splitNames, index);
+		}
 	}
 
-	private boolean proceedIfDuplicated(CarName[] splitNames, Map<CarName, Pair> carNameMap,
-		char indexCharacter, int index) {
+	private void renameUserName(Map<CarName, Pair> carNameMap, CarName[] splitNames, int index) {
+		if (proceedIfDuplicated(splitNames, carNameMap, index)) {
+			return;
+		}
+		carNameMap.put(splitNames[index], new Pair(index, 0));
+	}
+
+	private boolean proceedIfDuplicated(CarName[] splitNames, Map<CarName, Pair> carNameMap, int index) {
 		if (isDuplicated(splitNames[index], carNameMap)) {
 			Pair indexInfo = carNameMap.get(splitNames[index]);
-			appendIndexCharacter(splitNames, carNameMap, indexCharacter, index, indexInfo);
+			appendIndexCharacter(splitNames, carNameMap, index, indexInfo);
 			return true;
 		}
 		return false;
@@ -63,17 +62,24 @@ public class UserInput {
 		return carsMap.containsKey(key);
 	}
 
-	private void appendIndexCharacter(CarName[] splitNames, Map<CarName, Pair> carNameMap,
-		char indexCharacter, int index, Pair indexInfo) {
-
+	private void appendIndexCharacter(CarName[] splitNames, Map<CarName, Pair> carNameMap, int index, Pair indexInfo) {
 		if (indexInfo.frequentCount <= 0) {
 			splitNames[indexInfo.index] =
-				CarName.valueOf(splitNames[indexInfo.index].getValue() + (char)(indexInfo.frequentCount + indexCharacter));
+				CarName.valueOf(splitNames[indexInfo.index].getValue() + (char)(indexInfo.frequentCount
+					+ UserInput.INDEX_CHARACTER));
 		}
 		indexInfo.frequentCount += 1;
 		carNameMap.put(splitNames[index], new Pair(indexInfo.index, indexInfo.frequentCount));
-		String nextIndex = splitNames[index].getValue() + (char)(indexInfo.frequentCount + indexCharacter);
+		String nextIndex = splitNames[index].getValue() + (char)(indexInfo.frequentCount + UserInput.INDEX_CHARACTER);
 		splitNames[index] = CarName.valueOf(nextIndex);
+	}
+
+	private void setCarNames(String carNames) {
+		requiredNonNull(carNames, "값을 입력해주시기 바랍니다");
+		requiredNonEmpty(carNames, "값을 입력해주시기 바랍니다");
+
+		carNames = carNames.replace(" ", "");
+		this.carNames = carNames;
 	}
 
 	@Override
