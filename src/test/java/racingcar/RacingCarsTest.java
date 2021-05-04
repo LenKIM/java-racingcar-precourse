@@ -2,7 +2,6 @@ package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 import static racingcar.CurrentLocation.*;
-import static racingcar.RacingCar.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +51,27 @@ class RacingCarsTest {
 			assertThat(car.getCurrentLocation()).isEqualTo(STARTING_POINT);
 		}
 	}
+
+	@Test
+	void 레이싱카들은_1_ROUND_가_끝나면_기록이_저장된다() {
+		String carStringNames = "Foo,Bar,Kim";
+		UserInput userInput = UserInput.of(carStringNames);
+		sut = new RacingCars(userInput, Accelerator.PROCEED);
+
+		List<CarName> names = userInput.getCarNames();
+		int size = names.size();
+
+		Records records = sut.moveForward();
+
+		assertThat(records.getValue().size()).isEqualTo(size);
+		List<Record> value = records.getValue();
+		for (int i = 0; i < value.size(); i++) {
+			Record record = value.get(i);
+			assertThat(record.getCarName()).isEqualTo(names.get(i));
+			assertThat(record.getLocation()).isEqualTo(CurrentLocation.valueOf(1));
+		}
+	}
+
 
 	private List<RacingCar> getStubCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();

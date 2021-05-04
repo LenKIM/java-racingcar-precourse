@@ -3,9 +3,10 @@ public class Application {
 	public static void main(String[] args) {
 		RacingGameView view = new RacingGameView();
 		RacingGameModel model = new RacingGameModel();
-		Program program = new Program(model, view);
+		RacingGame racingGame = new RacingGame(model, view);
 
-		program.gameStart();
+		racingGame.ready();
+		racingGame.start();
 	}
 
 }

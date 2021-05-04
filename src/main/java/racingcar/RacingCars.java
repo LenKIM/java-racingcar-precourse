@@ -51,6 +51,15 @@ public class RacingCars {
 		return value.get(index);
 	}
 
+	public Records moveForward(){
+		List<Record> records = new ArrayList<>();
+		for (RacingCar racingCar : this.value) {
+			racingCar.moveForward();
+			records.add(Record.write(racingCar.getCarName(), racingCar.getCurrentLocation()));
+		}
+		return Records.from(records);
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o)
