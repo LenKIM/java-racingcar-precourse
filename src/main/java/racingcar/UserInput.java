@@ -21,7 +21,7 @@ public class UserInput {
 		return new UserInput(carNames);
 	}
 
-	public List<CarName> getCarNames() {
+	public CarNames getCarNames() {
 		Map<CarName, Pair> carNameMap = new HashMap<>();
 		String[] split = carNames.split(",");
 		CarName[] splitNames = new CarName[split.length];
@@ -38,7 +38,7 @@ public class UserInput {
 
 		List<CarName> cars = new ArrayList<>();
 		Collections.addAll(cars, splitNames);
-		return cars;
+		return CarNames.from(cars);
 	}
 
 	private void setCarNames(String carNames) {

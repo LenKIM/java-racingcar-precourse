@@ -34,14 +34,8 @@ class UserInputTest {
 	void 자동차이름을_입력하면_자동차_리스트를_반환한다() {
 		String carNames = "Foo,Bar,Kim";
 		sut = UserInput.of(carNames);
-		List<CarName> carNameList = sut.getCarNames();
 
-		List<CarName> expectedCarNameList = new ArrayList<>();
-		expectedCarNameList.add(CarName.valueOf("Foo"));
-		expectedCarNameList.add(CarName.valueOf("Bar"));
-		expectedCarNameList.add(CarName.valueOf("Kim"));
-
-		assertThat(carNameList).isEqualTo(expectedCarNameList);
+		assertThat(sut.getCarNames()).isEqualTo(CarNames.from(getDummyCarNameList()));
 	}
 
 	@ParameterizedTest(name = "입력값 {0}을 중복된 이름을 {1}와 같이 순번을 추가한 형태로 변환시킨다.")
@@ -54,16 +48,21 @@ class UserInputTest {
 		delimiter = ':')
 	void 동일한_자동차_이름의_경우_XXA_XXB_XXC_와같이_이름_끝에_순번을_추가한다(String userNames, String expectedUserNames, int expectedSize) {
 		UserInput sut = UserInput.of(userNames);
-		List<CarName> carNames = sut.getCarNames();
+		CarNames carNames = sut.getCarNames();
 
 		List<CarName> expectedNames = new ArrayList<>();
-		String[] split = expectedUserNames.split(",");
-		CarName[] expectedUserNameArray = new CarName[split.length];
-		for (int i = 0; i < split.length; i++) {
-			expectedUserNameArray[i] = CarName.valueOf(split[i]);
+		for (String s : expectedUserNames.split(",")) {
+			expectedNames.add(CarName.valueOf(s));
 		}
-		Collections.addAll(expectedNames, expectedUserNameArray);
-		assertThat(carNames).isEqualTo(expectedNames);
-		assertThat(carNames.size()).isEqualTo(expectedSize);
+		assertThat(carNames).isEqualTo(CarNames.from(expectedNames));
+		assertThat(carNames.getValue().size()).isEqualTo(expectedSize);
+	}
+
+	private List<CarName> getDummyCarNameList() {
+		List<CarName> expectedCarNameList = new ArrayList<>();
+		expectedCarNameList.add(CarName.valueOf("Foo"));
+		expectedCarNameList.add(CarName.valueOf("Bar"));
+		expectedCarNameList.add(CarName.valueOf("Kim"));
+		return expectedCarNameList;
 	}
 }

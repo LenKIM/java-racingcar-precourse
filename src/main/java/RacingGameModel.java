@@ -3,6 +3,7 @@ import java.util.List;
 
 import racingcar.Accelerator;
 import racingcar.CarName;
+import racingcar.CarNames;
 import racingcar.Race;
 import racingcar.RaceResults;
 import racingcar.RacingCar;
@@ -23,7 +24,8 @@ public class RacingGameModel {
 
 	public void setRacingCarNames(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
-		for (CarName carName : userInput.getCarNames()) {
+		CarNames carNames = userInput.getCarNames();
+		for (CarName carName : carNames.getValue()) {
 			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
 		}
 		this.racingCars = RacingCars.from(racingCars);

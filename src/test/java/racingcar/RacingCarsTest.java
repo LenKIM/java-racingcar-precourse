@@ -36,7 +36,7 @@ class RacingCarsTest {
 	void n대의_자동차의_시작지점은_STARTING_POINT이다(String carStringNames, int n) {
 		UserInput userInput = UserInput.of(carStringNames);
 		List<RacingCar> racingCars = new ArrayList<>();
-		for (CarName carName : userInput.getCarNames()) {
+		for (CarName carName : userInput.getCarNames().getValue()) {
 			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
 		}
 		sut = RacingCars.from(racingCars);
@@ -51,15 +51,15 @@ class RacingCarsTest {
 	void 레이싱카들은_1_ROUND_가_끝나면_기록이_저장된다() {
 		String carStringNames = "Foo,Bar,Kim";
 		UserInput userInput = UserInput.of(carStringNames);
-		List<CarName> carNames = userInput.getCarNames();
+		CarNames carNames = userInput.getCarNames();
 		List<RacingCar> racingCars = new ArrayList<>();
-		for (CarName carName : carNames) {
+		for (CarName carName : carNames.getValue()) {
 			racingCars.add(new RacingCar(carName, Accelerator.PROCEED));
 		}
 		sut = RacingCars.from(racingCars);
 
-		List<CarName> names = userInput.getCarNames();
-		int size = names.size();
+		CarNames names = userInput.getCarNames();
+		int size = names.getValue().size();
 
 		Records records = sut.moveForward();
 
@@ -67,14 +67,14 @@ class RacingCarsTest {
 		List<Record> value = records.getValue();
 		for (int i = 0; i < value.size(); i++) {
 			Record record = value.get(i);
-			assertThat(record.getCarName()).isEqualTo(names.get(i));
+			assertThat(record.getCarName()).isEqualTo(names.getValue().get(i));
 			assertThat(record.getLocation()).isEqualTo(CurrentLocation.valueOf(1));
 		}
 	}
 
 	private List<RacingCar> getStubRacingCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
-		for (CarName carName : userInput.getCarNames()) {
+		for (CarName carName : userInput.getCarNames().getValue()) {
 			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP);
 			racingCars.add(racingCar);
 		}
