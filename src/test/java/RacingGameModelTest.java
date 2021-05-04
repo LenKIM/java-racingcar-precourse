@@ -3,6 +3,8 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import racingcar.Accelerator;
@@ -16,19 +18,26 @@ class RacingGameModelTest {
 
 	RacingGameModel sut;
 
+	@BeforeEach
+	void setUp() {
+		sut = new RacingGameModel();
+	}
+	
+	@Disabled
 	@Test
 	void 사용자로부터_입력을_받아_복수의_레이싱카를_생산한다() {
-		String carNames = "foo,bar";
-		sut = new RacingGameModel();
 
 		Accelerator randomAccelerator = Accelerator.from(new RandomEngine());
 		List<RacingCar> expectedCars = new ArrayList<>();
 		expectedCars.add(new RacingCar(CarName.valueOf("foo"), randomAccelerator));
 		expectedCars.add(new RacingCar(CarName.valueOf("bar"), randomAccelerator));
 
+		String carNames = "foo,bar";
 		sut.setRacingCarNames(UserInput.of(carNames));
 		RacingCars actual = sut.getRacingCars();
+
 		RacingCars expected = RacingCars.of(expectedCars);
+
 		assertThat(actual).isEqualTo(expected);
 		assertThat(actual.size()).isEqualTo(expectedCars.size());
 	}

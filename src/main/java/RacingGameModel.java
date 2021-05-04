@@ -1,7 +1,10 @@
+import java.util.List;
+
 import racingcar.Accelerator;
 import racingcar.Race;
 import racingcar.RaceResults;
 import racingcar.RacingCars;
+import racingcar.Record;
 import racingcar.RoundNumber;
 import racingcar.UserInput;
 import racingcar.engine.RandomEngine;
@@ -32,11 +35,15 @@ public class RacingGameModel {
 		race.start();
 	}
 
-	public RaceResults result() {
+	public RaceResults getRaceResult() {
 		return race.getResult();
 	}
 
 	public Race getRace() {
 		return race;
+	}
+
+	public List<Record> getWinner() {
+		return race.getResult().getWinners();
 	}
 }

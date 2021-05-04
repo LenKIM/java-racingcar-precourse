@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import racingcar.RaceResults;
 import racingcar.UserInput;
 
 public class RacingGame {
@@ -22,6 +23,8 @@ public class RacingGame {
 
 	public void start() {
 		model.start();
-		view.raceResultMessage(model.result());
+		view.raceResultMessage(model.getRaceResult());
+
+		view.printWinners(model.getWinner());
 	}
 }

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import racingcar.CarName;
@@ -20,7 +21,7 @@ public class RacingGameView {
 		System.out.println("실행 결과");
 		List<RoundScore> roundScores = result.getValue();
 		for (RoundScore roundScore : roundScores) {
-			System.out.println(roundScore.getNumber().getCount());
+			System.out.println();
 			printRoundDistance(roundScore);
 		}
 	}
@@ -28,15 +29,26 @@ public class RacingGameView {
 	private void printRoundDistance(RoundScore roundScore) {
 		List<Record> records = roundScore.getRecords().getValue();
 		for (Record record : records) {
-			printRoundDistance(record.getCarName(),record.getLocation());
+			printRoundDistance(record.getCarName(), record.getLocation());
 		}
 	}
 
-	private void printRoundDistance(CarName carName, CurrentLocation currentLocation){
+	private void printRoundDistance(CarName carName, CurrentLocation currentLocation) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < currentLocation.getValue(); i++) {
 			sb.append("-");
 		}
-		System.out.println(carName.getValue()+ " : " + sb);
+		System.out.println(carName.getValue() + " : " + sb);
+	}
+
+	public void printWinners(List<Record> winner) {
+		StringBuilder sb = new StringBuilder();
+		List<String> winnerNames = new ArrayList<>();
+		for (Record record : winner) {
+			winnerNames.add(record.getCarName().getValue());
+		}
+		sb.append(String.join(",",winnerNames));
+		sb.append("가 최종 우승했습니다.");
+		System.out.println(sb);
 	}
 }

@@ -2,6 +2,9 @@ package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,11 +16,20 @@ class RaceTest {
 	Race sut;
 	private RacingCar fooCar;
 	private RacingCar barCar;
+	private CarName foo;
+	private CarName bar;
+	private CarName kim;
+	private CarName park;
 
 	@BeforeEach
 	void setUp() {
-		fooCar = new RacingCar(CarName.valueOf("foo"), Accelerator.PROCEED);
-		barCar = new RacingCar(CarName.valueOf("bar"), Accelerator.PROCEED);
+		foo = CarName.valueOf("Foo");
+		bar = CarName.valueOf("bar");
+		kim = CarName.valueOf("kim");
+		park = CarName.valueOf("park");
+
+		fooCar = new RacingCar(foo, Accelerator.PROCEED);
+		barCar = new RacingCar(bar, Accelerator.PROCEED);
 
 		alwaysProceedRacingCars = RacingCars.of(Lists.list(fooCar, barCar));
 		five_times_rounds = RoundNumber.valueOf("5");
@@ -54,5 +66,35 @@ class RaceTest {
 
 		assertThatThrownBy(() -> sut.getResult()).isInstanceOf(IllegalArgumentException.class)
 			.hasMessageMatching("게임이 아직 시작되지 않았습니다");
+	}
+
+	@Test
+	void 아무도_전진하지_않았다면_모두가_우승자이다() {
+		RacingCars cars = getRacingCarsWithNoProceedAccelerator();
+		List<Record> winners = getWinnerRecords();
+
+		sut = Race.of(cars, RoundNumber.valueOf(5));
+		assertThat(sut.isFinished()).isFalse();
+		sut.start();
+		assertThat(sut.isFinished()).isTrue();
+		RaceResults result = sut.getResult();
+		assertThat(result.getWinners()).isEqualTo(winners);
+	}
+
+	private List<Record> getWinnerRecords() {
+		List<Record> winners = new ArrayList<>();
+		winners.add(Record.write(foo, CurrentLocation.valueOf(0)));
+		winners.add(Record.write(bar, CurrentLocation.valueOf(0)));
+		winners.add(Record.write(kim, CurrentLocation.valueOf(0)));
+		winners.add(Record.write(park, CurrentLocation.valueOf(0)));
+		return winners;
+	}
+
+	private RacingCars getRacingCarsWithNoProceedAccelerator() {
+		RacingCar fooCar = new RacingCar(foo, Accelerator.STOP);
+		RacingCar barCar = new RacingCar(bar, Accelerator.STOP);
+		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
+		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
+		return RacingCars.of(Lists.list(fooCar, barCar, kimCar, parkCar));
 	}
 }
