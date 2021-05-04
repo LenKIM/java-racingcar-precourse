@@ -19,9 +19,13 @@ public class UserInput {
 		return new UserInput(carNames);
 	}
 
-	public List<String> getCarNames() {
-		Map<String, Pair> carNameMap = new HashMap<>();
-		String[] splitNames = carNames.split(",");
+	public List<CarName> getCarNames() {
+		Map<CarName, Pair> carNameMap = new HashMap<>();
+		String[] split = carNames.split(",");
+		CarName[] splitNames = new CarName[split.length];
+		for (int i = 0; i < split.length; i++) {
+			splitNames[i] = CarName.valueOf(split[i]);
+		}
 		char indexCharacter = '1';
 		for (int index = 0; index < splitNames.length; index++) {
 			if (proceedIfDuplicated(splitNames, carNameMap, indexCharacter, index)) {
@@ -30,13 +34,12 @@ public class UserInput {
 			carNameMap.put(splitNames[index], new Pair(index, 0));
 		}
 
-		List<String> cars = new ArrayList<>();
+		List<CarName> cars = new ArrayList<>();
 		Collections.addAll(cars, splitNames);
 		return cars;
 	}
 
 	private void setCarNames(String carNames) {
-
 		if (Objects.isNull(carNames) || carNames.isEmpty()) {
 			throw new IllegalArgumentException("값을 입력해주시기 바랍니다");
 		}
@@ -45,7 +48,7 @@ public class UserInput {
 		this.carNames = carNames;
 	}
 
-	private boolean proceedIfDuplicated(String[] splitNames, Map<String, Pair> carNameMap,
+	private boolean proceedIfDuplicated(CarName[] splitNames, Map<CarName, Pair> carNameMap,
 		char indexCharacter, int index) {
 		if (isDuplicated(splitNames[index], carNameMap)) {
 			Pair indexInfo = carNameMap.get(splitNames[index]);
@@ -55,20 +58,21 @@ public class UserInput {
 		return false;
 	}
 
-	private boolean isDuplicated(String key, Map<String, Pair> carsMap) {
+	private boolean isDuplicated(CarName key, Map<CarName, Pair> carsMap) {
 		return carsMap.containsKey(key);
 	}
 
-	private void appendIndexCharacter(String[] splitNames, Map<String, Pair> carNameMap,
+	private void appendIndexCharacter(CarName[] splitNames, Map<CarName, Pair> carNameMap,
 		char indexCharacter, int index, Pair indexInfo) {
+
 		if (indexInfo.frequentCount <= 0) {
 			splitNames[indexInfo.index] =
-				splitNames[indexInfo.index] + (char)(indexInfo.frequentCount + indexCharacter);
+				CarName.valueOf(splitNames[indexInfo.index].getValue() + (char)(indexInfo.frequentCount + indexCharacter));
 		}
 		indexInfo.frequentCount += 1;
 		carNameMap.put(splitNames[index], new Pair(indexInfo.index, indexInfo.frequentCount));
-		String nextIndex = splitNames[index] + (char)(indexInfo.frequentCount + indexCharacter);
-		splitNames[index] = nextIndex;
+		String nextIndex = splitNames[index].getValue() + (char)(indexInfo.frequentCount + indexCharacter);
+		splitNames[index] = CarName.valueOf(nextIndex);
 	}
 
 	@Override

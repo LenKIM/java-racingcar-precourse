@@ -32,14 +32,14 @@ class UserInputTest {
 
 	@Test
 	void 자동차이름을_입력하면_자동차_리스트를_반환한다() {
-		String carNames = "foo,bar,kim";
+		String carNames = "Foo,Bar,Kim";
 		sut = UserInput.of(carNames);
-		List<String> carNameList = sut.getCarNames();
+		List<CarName> carNameList = sut.getCarNames();
 
-		List<String> expectedCarNameList = new ArrayList<>();
-		expectedCarNameList.add("foo");
-		expectedCarNameList.add("bar");
-		expectedCarNameList.add("kim");
+		List<CarName> expectedCarNameList = new ArrayList<>();
+		expectedCarNameList.add(CarName.valueOf("Foo"));
+		expectedCarNameList.add(CarName.valueOf("Bar"));
+		expectedCarNameList.add(CarName.valueOf("Kim"));
 
 		assertThat(carNameList).isEqualTo(expectedCarNameList);
 	}
@@ -54,10 +54,15 @@ class UserInputTest {
 		delimiter = ':')
 	void 동일한_자동차_이름의_경우_XXA_XXB_XXC_와같이_이름_끝에_순번을_추가한다(String userNames, String expectedUserNames, int expectedSize) {
 		UserInput sut = UserInput.of(userNames);
-		List<String> carNames = sut.getCarNames();
+		List<CarName> carNames = sut.getCarNames();
 
-		List<String> expectedNames = new ArrayList<>();
-		Collections.addAll(expectedNames, expectedUserNames.split(","));
+		List<CarName> expectedNames = new ArrayList<>();
+		String[] split = expectedUserNames.split(",");
+		CarName[] expectedUserNameArray = new CarName[split.length];
+		for (int i = 0; i < split.length; i++) {
+			expectedUserNameArray[i] = CarName.valueOf(split[i]);
+		}
+		Collections.addAll(expectedNames, expectedUserNameArray);
 		assertThat(carNames).isEqualTo(expectedNames);
 		assertThat(carNames.size()).isEqualTo(expectedSize);
 	}

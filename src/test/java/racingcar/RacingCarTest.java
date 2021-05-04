@@ -1,7 +1,7 @@
 package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
-import static racingcar.RacingCar.*;
+import static racingcar.CurrentLocation.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,35 +9,35 @@ import org.junit.jupiter.api.Test;
 class RacingCarTest {
 
 	private RacingCar sut;
-	private String name;
+	private CarName name;
 	private Accelerator acceleratorStub;
 
 	@BeforeEach
 	void setUp() {
-		name = "Foo";
+		name = CarName.valueOf("Foo");
 		acceleratorStub = Accelerator.STOP;
 	}
 
 	@Test
 	void RacingCar는_이름을_가진다() {
 		sut = new RacingCar(name, acceleratorStub);
-		assertThat(sut.getName()).isEqualTo(name);
+		assertThat(sut.getCarName()).isEqualTo(name);
 	}
 
 	@Test
 	void RacingCar는_이름이_없을경우_IllegalArgumentException_발생한다() {
-		assertThatThrownBy(() -> sut = new RacingCar("", acceleratorStub))
+		assertThatThrownBy(() -> sut = new RacingCar(CarName.valueOf(""), acceleratorStub))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageMatching("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
 
 		assertThatThrownBy(() -> sut = new RacingCar(null, acceleratorStub))
 			.isInstanceOf(IllegalArgumentException.class)
-			.hasMessageMatching("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
+			.hasMessageMatching("레이싱카의 이름이 없습니다");
 	}
 
 	@Test
 	void RacingCar는_5글자_초과의_이름을_가질_경우_IllegalArgumentException_발생한다() {
-		assertThatThrownBy(() -> sut = new RacingCar("FooFoo", acceleratorStub))
+		assertThatThrownBy(() -> sut = new RacingCar(CarName.valueOf("FooFoo"), acceleratorStub))
 			.isInstanceOf(IllegalArgumentException.class)
 			.hasMessageMatching("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
 	}
@@ -58,7 +58,7 @@ class RacingCarTest {
 	void 엑셀레이터의_전원이_동작하는_경우_자동차는_전진한다() {
 		Accelerator accelerator = Accelerator.PROCEED;
 		assertThat(accelerator.moveForward()).isEqualTo(Power.ON);
-		int MOVED_RACING_CAR = STARTING_POINT + 1;
+		CurrentLocation MOVED_RACING_CAR = CurrentLocation.valueOf(STARTING_POINT.getValue() + 1);
 
 		sut = new RacingCar(name, accelerator);
 		assertThat(sut.getCurrentLocation()).isEqualTo(STARTING_POINT);

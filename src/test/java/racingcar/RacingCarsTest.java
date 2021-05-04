@@ -1,6 +1,7 @@
 package racingcar;
 
 import static org.assertj.core.api.Assertions.*;
+import static racingcar.CurrentLocation.*;
 import static racingcar.RacingCar.*;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ class RacingCarsTest {
 
 	private List<RacingCar> getStubCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
-		for (String carName : userInput.getCarNames()) {
+		for (CarName carName : userInput.getCarNames()) {
 			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP);
 			racingCars.add(racingCar);
 		}

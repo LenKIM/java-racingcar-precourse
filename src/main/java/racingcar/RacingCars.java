@@ -31,9 +31,9 @@ public class RacingCars {
 		this.value = value;
 	}
 
-	private void setValueByNames(List<String> names) {
+	private void setValueByNames(List<CarName> names) {
 		value = new ArrayList<>();
-		for (String name : names) {
+		for (CarName name : names) {
 			value.add(new RacingCar(name, accelerator));
 		}
 		setValue(value);

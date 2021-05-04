@@ -4,36 +4,31 @@ import java.util.Objects;
 
 public class RacingCar {
 
-	public static final int STARTING_POINT = 0;
-
-	private static final int MINIMUM_CAR_NAME_SIZE = 1;
-	private static final int MAXIMUM_CAR_NAME_SIZE = 5;
-
-	private String name;
-	private int currentLocation = STARTING_POINT;
+	private CarName carName;
+	private CurrentLocation currentLocation = CurrentLocation.STARTING_POINT;
 	private Accelerator accelerator;
 
-	public RacingCar(String name, Accelerator accelerator) {
-		setName(name);
+	public RacingCar(CarName carName, Accelerator accelerator) {
+		setCarName(carName);
 		setAccelerator(accelerator);
 	}
 
-	public String getName() {
-		return name;
+	public CarName getCarName() {
+		return carName;
 	}
 
-	private void setName(String name) {
-		if (Objects.isNull(name) || name.length() > MAXIMUM_CAR_NAME_SIZE || name.length() < MINIMUM_CAR_NAME_SIZE) {
-			throw new IllegalArgumentException("자동차는 1글자 이상 5글자이하의 이름을 갖습니다.");
+	private void setCarName(CarName carName) {
+		if (Objects.isNull(carName)){
+			throw new IllegalArgumentException("레이싱카의 이름이 없습니다");
 		}
-		this.name = name;
+		this.carName = carName;
 	}
 
-	public int getCurrentLocation() {
+	public CurrentLocation getCurrentLocation() {
 		return currentLocation;
 	}
 
-	private void setCurrentLocation(int currentLocation) {
+	private void setCurrentLocation(CurrentLocation currentLocation) {
 		this.currentLocation = currentLocation;
 	}
 
@@ -50,7 +45,7 @@ public class RacingCar {
 
 	public void moveForward() {
 		if (accelerator.moveForward().equals(Power.ON)) {
-			setCurrentLocation(getCurrentLocation() + 1);
+			setCurrentLocation(CurrentLocation.valueOf(getCurrentLocation().getValue() + 1));
 		}
 	}
 
@@ -61,11 +56,11 @@ public class RacingCar {
 		if (!(o instanceof RacingCar))
 			return false;
 		RacingCar car = (RacingCar)o;
-		return Objects.equals(name, car.name) && Objects.equals(accelerator, car.accelerator);
+		return Objects.equals(carName, car.carName) && Objects.equals(accelerator, car.accelerator);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(name, accelerator);
+		return Objects.hash(carName, accelerator);
 	}
 }
