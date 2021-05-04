@@ -47,7 +47,7 @@ class RaceResultsTest {
 		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
 		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
 		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
-		RacingCars cars = RacingCars.of(Lists.list(fooCar, barCar, kimCar, parkCar));
+		RacingCars cars = RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
 
 		Race race = Race.of(cars, RoundNumber.valueOf(5));
 

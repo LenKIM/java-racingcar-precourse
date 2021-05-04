@@ -1,8 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import racingcar.Accelerator;
+import racingcar.CarName;
 import racingcar.Race;
 import racingcar.RaceResults;
+import racingcar.RacingCar;
 import racingcar.RacingCars;
 import racingcar.Record;
 import racingcar.RoundNumber;
@@ -19,7 +22,11 @@ public class RacingGameModel {
 	}
 
 	public void setRacingCarNames(UserInput userInput) {
-		this.racingCars = new RacingCars(userInput, Accelerator.from(new RandomEngine()));
+		List<RacingCar> racingCars = new ArrayList<>();
+		for (CarName carName : userInput.getCarNames()) {
+			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
+		}
+		this.racingCars = RacingCars.from(racingCars);
 	}
 
 	public RacingCars getRacingCars() {

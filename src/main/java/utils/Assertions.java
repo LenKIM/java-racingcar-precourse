@@ -15,4 +15,10 @@ public class Assertions {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
+
+	public static void requiredIsTrue(boolean condition, String exceptionMessage) {
+		if (condition == false){
+			throw new IllegalArgumentException(exceptionMessage);
+		}
+	}
 }

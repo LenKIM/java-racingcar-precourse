@@ -9,18 +9,12 @@ public class RacingCars {
 	private final static int MINIMUM_CAR_SIZE = 1;
 
 	private List<RacingCar> value;
-	private Accelerator accelerator;
 
 	private RacingCars(List<RacingCar> value) {
 		setValue(value);
 	}
 
-	public RacingCars(UserInput userInput, Accelerator accelerator) {
-		setAccelerator(accelerator);
-		setValueByNames(userInput.getCarNames());
-	}
-
-	public static RacingCars of(List<RacingCar> value) {
+	public static RacingCars from(List<RacingCar> value) {
 		return new RacingCars(value);
 	}
 
@@ -29,18 +23,6 @@ public class RacingCars {
 			throw new IllegalArgumentException("게임은 자동차 2대부터 시작할 수 있습니다");
 		}
 		this.value = value;
-	}
-
-	private void setValueByNames(List<CarName> names) {
-		value = new ArrayList<>();
-		for (CarName name : names) {
-			value.add(new RacingCar(name, accelerator));
-		}
-		setValue(value);
-	}
-
-	private void setAccelerator(Accelerator accelerator) {
-		this.accelerator = accelerator;
 	}
 
 	public int size() {

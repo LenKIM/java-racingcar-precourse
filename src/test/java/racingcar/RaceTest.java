@@ -31,7 +31,7 @@ class RaceTest {
 		fooCar = new RacingCar(foo, Accelerator.PROCEED);
 		barCar = new RacingCar(bar, Accelerator.PROCEED);
 
-		alwaysProceedRacingCars = RacingCars.of(Lists.list(fooCar, barCar));
+		alwaysProceedRacingCars = RacingCars.from(Lists.list(fooCar, barCar));
 		five_times_rounds = RoundNumber.valueOf("5");
 	}
 
@@ -95,6 +95,6 @@ class RaceTest {
 		RacingCar barCar = new RacingCar(bar, Accelerator.STOP);
 		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
 		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
-		return RacingCars.of(Lists.list(fooCar, barCar, kimCar, parkCar));
+		return RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
 	}
 }

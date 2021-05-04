@@ -48,8 +48,9 @@ public class Race {
 
 	public void start() {
 		List<RoundScore> roundScores = new ArrayList<>();
-		for (int i = 0; i < roundNumber.getCount(); i++) {
-			roundScores.add(RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(i), racingCars.moveForward()));
+		for (int round = 0; round < roundNumber.getCount(); round++) {
+			RoundScore roundScore = RoundScore.writeRoundNumberAndRecords(RoundNumber.valueOf(round), racingCars.moveForward());
+			roundScores.add(roundScore);
 		}
 		result = RaceResults.from(roundScores);
 		raceStatus = RaceStatus.FINISH;

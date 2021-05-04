@@ -22,7 +22,7 @@ class RacingGameModelTest {
 	void setUp() {
 		sut = new RacingGameModel();
 	}
-	
+
 	@Disabled
 	@Test
 	void 사용자로부터_입력을_받아_복수의_레이싱카를_생산한다() {
@@ -36,7 +36,7 @@ class RacingGameModelTest {
 		sut.setRacingCarNames(UserInput.of(carNames));
 		RacingCars actual = sut.getRacingCars();
 
-		RacingCars expected = RacingCars.of(expectedCars);
+		RacingCars expected = RacingCars.from(expectedCars);
 
 		assertThat(actual).isEqualTo(expected);
 		assertThat(actual.size()).isEqualTo(expectedCars.size());

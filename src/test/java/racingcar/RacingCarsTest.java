@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import racingcar.engine.RandomEngine;
+
 class RacingCarsTest {
 
 	RacingCars sut;
@@ -17,23 +19,11 @@ class RacingCarsTest {
 	@Test
 	void 이름을_가진_자동차가_1대_일경우_IllegalArgumentException_발생한다() {
 		String carNames = "foo";
-		assertThatThrownBy(() -> sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP))
-			.isInstanceOf(IllegalArgumentException.class)
+		assertThatThrownBy(() -> {
+			UserInput userInput = UserInput.of(carNames);
+			sut = RacingCars.from(getStubRacingCars(userInput));
+		}).isInstanceOf(IllegalArgumentException.class)
 			.hasMessageMatching("게임은 자동차 2대부터 시작할 수 있습니다");
-	}
-
-	@Test
-	void 이름을_가진_두대의_자동차를_생산한다() {
-		String carNames = "foo,bar";
-		List<RacingCar> expectedCars = getStubCars(UserInput.of(carNames));
-
-		sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP);
-		assertThat(sut.size()).isEqualTo(expectedCars.size());
-		assertThat(sut).isEqualTo(RacingCars.of(expectedCars));
-		for (int i = 0; i < sut.size(); i++) {
-			RacingCar car = sut.get(i);
-			assertThat(car.getCurrentLocation()).isEqualTo(STARTING_POINT);
-		}
 	}
 
 	@ParameterizedTest(name = "{1} 대의 자동차의 시작지점은 STARTING_POINT 이다")
@@ -43,8 +33,13 @@ class RacingCarsTest {
 		"abc,aaa,bbb,ccc:4",
 		"abc,aaa,bbb,ccc,ddd:5",
 	}, delimiter = ':')
-	void n대의_자동차의_시작지점은_STARTING_POINT이다(String carNames, int n) {
-		sut = new RacingCars(UserInput.of(carNames), Accelerator.STOP);
+	void n대의_자동차의_시작지점은_STARTING_POINT이다(String carStringNames, int n) {
+		UserInput userInput = UserInput.of(carStringNames);
+		List<RacingCar> racingCars = new ArrayList<>();
+		for (CarName carName : userInput.getCarNames()) {
+			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
+		}
+		sut = RacingCars.from(racingCars);
 		assertThat(sut.size()).isEqualTo(n);
 		for (int i = 0; i < sut.size(); i++) {
 			RacingCar car = sut.get(i);
@@ -56,7 +51,12 @@ class RacingCarsTest {
 	void 레이싱카들은_1_ROUND_가_끝나면_기록이_저장된다() {
 		String carStringNames = "Foo,Bar,Kim";
 		UserInput userInput = UserInput.of(carStringNames);
-		sut = new RacingCars(userInput, Accelerator.PROCEED);
+		List<CarName> carNames = userInput.getCarNames();
+		List<RacingCar> racingCars = new ArrayList<>();
+		for (CarName carName : carNames) {
+			racingCars.add(new RacingCar(carName, Accelerator.PROCEED));
+		}
+		sut = RacingCars.from(racingCars);
 
 		List<CarName> names = userInput.getCarNames();
 		int size = names.size();
@@ -72,8 +72,7 @@ class RacingCarsTest {
 		}
 	}
 
-
-	private List<RacingCar> getStubCars(UserInput userInput) {
+	private List<RacingCar> getStubRacingCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (CarName carName : userInput.getCarNames()) {
 			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP);
