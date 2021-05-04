@@ -13,7 +13,7 @@ public class CarNames {
 		setValue(value);
 	}
 
-	public static CarNames from(List<CarName> value){
+	public static CarNames from(List<CarName> value) {
 		return new CarNames(value);
 	}
 

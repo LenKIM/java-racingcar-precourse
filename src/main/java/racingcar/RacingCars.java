@@ -33,7 +33,7 @@ public class RacingCars {
 		return value.get(index);
 	}
 
-	public Records moveForward(){
+	public Records moveForward() {
 		List<Record> records = new ArrayList<>();
 		for (RacingCar racingCar : this.value) {
 			racingCar.moveForward();

@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import racingcar.RaceResults;
 import racingcar.UserInput;
 
 public class RacingGame {

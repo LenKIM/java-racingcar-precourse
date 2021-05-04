@@ -22,7 +22,7 @@ class RecordsTest {
 
 	@Test
 	void 아무것도_들어가지_않을때는_예외를_호출한다() {
-		assertThatThrownBy(() ->  Records.from(null)).isInstanceOf(IllegalArgumentException.class)
+		assertThatThrownBy(() -> Records.from(null)).isInstanceOf(IllegalArgumentException.class)
 			.hasMessage("작성된 기록이 없습니다");
 	}
 }

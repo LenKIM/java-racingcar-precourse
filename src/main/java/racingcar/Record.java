@@ -18,9 +18,8 @@ public class Record {
 		return new Record(name, location);
 	}
 
-	public void setCarName(CarName carName) {
-		requiredNonNull(carName, "레이싱카 이름이 없습니다");
-		this.carName = carName;
+	public CurrentLocation getLocation() {
+		return currentLocation;
 	}
 
 	public void setLocation(CurrentLocation currentLocation) {
@@ -28,12 +27,13 @@ public class Record {
 		this.currentLocation = currentLocation;
 	}
 
-	public CurrentLocation getLocation() {
-		return currentLocation;
-	}
-
 	public CarName getCarName() {
 		return carName;
+	}
+
+	public void setCarName(CarName carName) {
+		requiredNonNull(carName, "레이싱카 이름이 없습니다");
+		this.carName = carName;
 	}
 
 	@Override

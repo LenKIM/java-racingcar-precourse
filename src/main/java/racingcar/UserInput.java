@@ -11,8 +11,8 @@ import java.util.Objects;
 
 public class UserInput {
 
-	private String carNames;
 	private static final char INDEX_CHARACTER = '1';
+	private String carNames;
 
 	private UserInput(String carNames) {
 		setCarNames(carNames);
@@ -31,6 +31,14 @@ public class UserInput {
 		List<CarName> cars = new ArrayList<>();
 		Collections.addAll(cars, splitNames);
 		return CarNames.from(cars);
+	}
+
+	private void setCarNames(String carNames) {
+		requiredNonNull(carNames, "값을 입력해주시기 바랍니다");
+		requiredNonEmpty(carNames, "값을 입력해주시기 바랍니다");
+
+		carNames = carNames.replace(" ", "");
+		this.carNames = carNames;
 	}
 
 	private void duplicatedNameProcess(Map<CarName, Pair> carNameMap, String[] splitString, CarName[] splitNames) {
@@ -72,14 +80,6 @@ public class UserInput {
 		carNameMap.put(splitNames[index], new Pair(indexInfo.index, indexInfo.frequentCount));
 		String nextIndex = splitNames[index].getValue() + (char)(indexInfo.frequentCount + UserInput.INDEX_CHARACTER);
 		splitNames[index] = CarName.valueOf(nextIndex);
-	}
-
-	private void setCarNames(String carNames) {
-		requiredNonNull(carNames, "값을 입력해주시기 바랍니다");
-		requiredNonEmpty(carNames, "값을 입력해주시기 바랍니다");
-
-		carNames = carNames.replace(" ", "");
-		this.carNames = carNames;
 	}
 
 	@Override

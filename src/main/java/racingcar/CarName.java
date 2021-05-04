@@ -11,12 +11,12 @@ public class CarName {
 
 	private String value;
 
-	public static CarName valueOf(String value) {
-		return new CarName(value);
-	}
-
 	private CarName(String value) {
 		setCarNames(value);
+	}
+
+	public static CarName valueOf(String value) {
+		return new CarName(value);
 	}
 
 	private void setCarNames(String value) {

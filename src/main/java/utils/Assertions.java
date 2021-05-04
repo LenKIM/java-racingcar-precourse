@@ -5,25 +5,25 @@ import java.util.Objects;
 public class Assertions {
 
 	public static void requiredNonNull(Object object, String exceptionMessage) {
-		if (Objects.isNull(object)){
+		if (Objects.isNull(object)) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
 
 	public static void requiredNonEmpty(String string, String exceptionMessage) {
-		if (string.trim().isEmpty()){
+		if (string.trim().isEmpty()) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
 
 	public static void requiredIsTrue(boolean condition, String exceptionMessage) {
-		if (condition == false){
+		if (condition == false) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}
 
 	public static void requiredIsFalse(boolean condition, String exceptionMessage) {
-		if (condition){
+		if (condition) {
 			throw new IllegalArgumentException(exceptionMessage);
 		}
 	}

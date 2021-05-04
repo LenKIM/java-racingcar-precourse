@@ -22,8 +22,6 @@ public class RacingGameView {
 		System.out.println();
 	}
 
-
-
 	public void raceResultMessage(RaceResults result) {
 		System.out.println("실행 결과");
 		List<RoundScore> roundScores = result.getValue();
@@ -54,7 +52,7 @@ public class RacingGameView {
 		for (Record record : winner.getValue()) {
 			winnerNames.add(record.getCarName().getValue());
 		}
-		sb.append(String.join(",",winnerNames));
+		sb.append(String.join(",", winnerNames));
 		sb.append("가 최종 우승했습니다.");
 		System.out.println(sb);
 	}

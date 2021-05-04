@@ -5,8 +5,6 @@ import static utils.Assertions.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.Assertions;
-
 public class Race {
 
 	private RacingCars racingCars;

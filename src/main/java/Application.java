@@ -8,5 +8,4 @@ public class Application {
 		racingGame.ready();
 		racingGame.start();
 	}
-
 }
