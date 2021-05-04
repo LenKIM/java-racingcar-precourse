@@ -79,7 +79,7 @@
    - [x] UserInput 클래스에 10줄 넘는 메소드 리팩토링 하기
    - [x] Assertions Util 에서 조건문에 의한 코드 추가하기
    - [x] Accelerator 에서 요구사항에 맞는 엔진 상수 정의하기
-   - [ ] 처음 시작시 안내 가이드 Print 수정하기
+   - [x] 처음 시작시 안내 가이드 Print 수정하기
    - [ ] RacingGameModel 생성자 좀 더 나은 코드 고민하기
 
 

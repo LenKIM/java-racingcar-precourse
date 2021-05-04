@@ -19,6 +19,7 @@ public class RacingGame {
 		model.setRacingCarNames(UserInput.of(sc.nextLine()));
 		view.askingForRoundCountMessage();
 		model.setRound(sc.nextLine());
+		view.emptyLine();
 	}
 
 	public void start() {

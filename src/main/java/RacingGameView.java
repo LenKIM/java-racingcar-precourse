@@ -11,12 +11,18 @@ import racingcar.Winners;
 public class RacingGameView {
 
 	public void racingCarGameStart() {
-		System.out.println("게임 시작!");
+		System.out.println("경주할 자동차 이름을 입력하세.(이름은 쉼(,) 기준으 구분)");
 	}
 
 	public void askingForRoundCountMessage() {
-		System.out.println("시도할 회수는 몇회인가요?");
+		System.out.println("시도할 횟수는 몇회인가요?");
 	}
+
+	public void emptyLine() {
+		System.out.println();
+	}
+
+
 
 	public void raceResultMessage(RaceResults result) {
 		System.out.println("실행 결과");
