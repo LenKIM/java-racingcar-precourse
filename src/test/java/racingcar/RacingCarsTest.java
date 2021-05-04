@@ -10,8 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import racingcar.engine.RandomEngine;
-
 class RacingCarsTest {
 
 	RacingCars sut;
@@ -37,7 +35,7 @@ class RacingCarsTest {
 		UserInput userInput = UserInput.of(carStringNames);
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (CarName carName : userInput.getCarNames().getValue()) {
-			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
+			racingCars.add(new RacingCar(carName, Accelerator.STOP_ENGINE));
 		}
 		sut = RacingCars.from(racingCars);
 		assertThat(sut.size()).isEqualTo(n);
@@ -54,7 +52,7 @@ class RacingCarsTest {
 		CarNames carNames = userInput.getCarNames();
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (CarName carName : carNames.getValue()) {
-			racingCars.add(new RacingCar(carName, Accelerator.PROCEED));
+			racingCars.add(new RacingCar(carName, Accelerator.PROCEED_ENGINE));
 		}
 		sut = RacingCars.from(racingCars);
 
@@ -75,7 +73,7 @@ class RacingCarsTest {
 	private List<RacingCar> getStubRacingCars(UserInput userInput) {
 		List<RacingCar> racingCars = new ArrayList<>();
 		for (CarName carName : userInput.getCarNames().getValue()) {
-			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP);
+			RacingCar racingCar = new RacingCar(carName, Accelerator.STOP_ENGINE);
 			racingCars.add(racingCar);
 		}
 		return racingCars;

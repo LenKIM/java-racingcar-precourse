@@ -26,8 +26,8 @@ class RaceTest {
 		kim = CarName.valueOf("kim");
 		park = CarName.valueOf("park");
 
-		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED);
-		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
+		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED_ENGINE);
+		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED_ENGINE);
 
 		alwaysProceedRacingCars = RacingCars.from(Lists.list(fooCar, barCar));
 		five_times_rounds = RoundNumber.valueOf("5");
@@ -89,10 +89,10 @@ class RaceTest {
 	}
 
 	private RacingCars getRacingCarsWithNoProceedAccelerator() {
-		RacingCar fooCar = new RacingCar(foo, Accelerator.STOP);
-		RacingCar barCar = new RacingCar(bar, Accelerator.STOP);
-		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
-		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
+		RacingCar fooCar = new RacingCar(foo, Accelerator.STOP_ENGINE);
+		RacingCar barCar = new RacingCar(bar, Accelerator.STOP_ENGINE);
+		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP_ENGINE);
+		RacingCar parkCar = new RacingCar(park, Accelerator.STOP_ENGINE);
 		return RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
 	}
 }

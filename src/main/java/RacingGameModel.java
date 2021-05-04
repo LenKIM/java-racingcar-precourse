@@ -8,11 +8,9 @@ import racingcar.Race;
 import racingcar.RaceResults;
 import racingcar.RacingCar;
 import racingcar.RacingCars;
-import racingcar.Record;
 import racingcar.RoundNumber;
 import racingcar.UserInput;
 import racingcar.Winners;
-import racingcar.engine.RandomEngine;
 
 public class RacingGameModel {
 
@@ -27,7 +25,7 @@ public class RacingGameModel {
 		List<RacingCar> racingCars = new ArrayList<>();
 		CarNames carNames = userInput.getCarNames();
 		for (CarName carName : carNames.getValue()) {
-			racingCars.add(new RacingCar(carName, Accelerator.from(new RandomEngine())));
+			racingCars.add(new RacingCar(carName, Accelerator.BOOSTING_RANDOM_LESS_THEN_FOUR_STOP_ENGINE));
 		}
 		this.racingCars = RacingCars.from(racingCars);
 	}

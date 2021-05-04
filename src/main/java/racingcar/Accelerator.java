@@ -2,15 +2,14 @@ package racingcar;
 
 import static utils.Assertions.*;
 
-import java.util.Objects;
-
 import racingcar.engine.Engine;
-import utils.Assertions;
+import racingcar.engine.RandomEngine;
 
 public class Accelerator {
 
-	public static final Accelerator PROCEED = Accelerator.from(() -> Power.ON);
-	public static final Accelerator STOP = Accelerator.from(() -> Power.OFF);
+	public static final Accelerator PROCEED_ENGINE = Accelerator.from(() -> Power.ON);
+	public static final Accelerator STOP_ENGINE = Accelerator.from(() -> Power.OFF);
+	public static final Accelerator BOOSTING_RANDOM_LESS_THEN_FOUR_STOP_ENGINE = Accelerator.from(new RandomEngine());
 
 	private final Engine<Power> engine;
 

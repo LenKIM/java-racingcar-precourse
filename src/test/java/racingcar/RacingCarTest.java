@@ -15,7 +15,7 @@ class RacingCarTest {
 	@BeforeEach
 	void setUp() {
 		name = CarName.valueOf("Foo");
-		acceleratorStub = Accelerator.STOP;
+		acceleratorStub = Accelerator.STOP_ENGINE;
 	}
 
 	@Test
@@ -56,7 +56,7 @@ class RacingCarTest {
 
 	@Test
 	void 엑셀레이터의_전원이_동작하는_경우_자동차는_전진한다() {
-		Accelerator accelerator = Accelerator.PROCEED;
+		Accelerator accelerator = Accelerator.PROCEED_ENGINE;
 		assertThat(accelerator.moveForward()).isEqualTo(Power.ON);
 		CurrentLocation MOVED_RACING_CAR = CurrentLocation.valueOf(STARTING_POINT.getValue() + 1);
 
@@ -69,7 +69,7 @@ class RacingCarTest {
 
 	@Test
 	void 엑셀레이터의_전원이_동작하지_않는_경우_자동차는_전진하지_않는다() {
-		Accelerator accelerator = Accelerator.STOP;
+		Accelerator accelerator = Accelerator.STOP_ENGINE;
 		assertThat(accelerator.moveForward()).isEqualTo(Power.OFF);
 
 		sut = new RacingCar(name, accelerator);

@@ -12,7 +12,6 @@ import racingcar.CarName;
 import racingcar.RacingCar;
 import racingcar.RacingCars;
 import racingcar.UserInput;
-import racingcar.engine.RandomEngine;
 
 class RacingGameModelTest {
 
@@ -27,7 +26,7 @@ class RacingGameModelTest {
 	@Test
 	void 사용자로부터_입력을_받아_복수의_레이싱카를_생산한다() {
 
-		Accelerator randomAccelerator = Accelerator.from(new RandomEngine());
+		Accelerator randomAccelerator = Accelerator.BOOSTING_RANDOM_LESS_THEN_FOUR_STOP_ENGINE;
 		List<RacingCar> expectedCars = new ArrayList<>();
 		expectedCars.add(new RacingCar(CarName.valueOf("foo"), randomAccelerator));
 		expectedCars.add(new RacingCar(CarName.valueOf("bar"), randomAccelerator));

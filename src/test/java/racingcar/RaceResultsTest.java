@@ -56,10 +56,10 @@ class RaceResultsTest {
 	}
 
 	private RacingCars getDummyRacingCars() {
-		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED);
-		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED);
-		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP);
-		RacingCar parkCar = new RacingCar(park, Accelerator.STOP);
+		RacingCar fooCar = new RacingCar(foo, Accelerator.PROCEED_ENGINE);
+		RacingCar barCar = new RacingCar(bar, Accelerator.PROCEED_ENGINE);
+		RacingCar kimCar = new RacingCar(kim, Accelerator.STOP_ENGINE);
+		RacingCar parkCar = new RacingCar(park, Accelerator.STOP_ENGINE);
 		return RacingCars.from(Lists.list(fooCar, barCar, kimCar, parkCar));
 	}
 
